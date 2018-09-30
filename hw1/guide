@@ -1,0 +1,5 @@
+# Guide
+Q2_1 : python q2_1.py Reacher-v2 Hopper-v2 --num_rollouts=20
+Q2_3 : python q2_3.py
+Q3   : python q3_1.py experts/Hopper-v2.pkl Hopper-v2 --num_rollouts=10
+Bonus: python bonus.py Hopper-v2 --num_rollouts=20
