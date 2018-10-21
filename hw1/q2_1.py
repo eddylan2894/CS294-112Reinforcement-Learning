@@ -22,7 +22,7 @@ def main():
     parser.add_argument('--num_rollouts', type=int, default=20,
                         help='Number of expert roll outs')
     args = parser.parse_args()
-    
+
 
     env_name = [ args.envname1, args.envname2]
     with tf.Session():
@@ -31,11 +31,11 @@ def main():
         st_m = []
         st_s = []
 
-        for ev in env_name : 
+        for ev in env_name :
             tf_util.initialize()
-            model = keras.models.load_model( ev +'_model.h5')
+            model = keras.models.load_model('Trained_model'+ ev +'_model.h5')
             policy_fn = load_policy.load_policy('experts/'+ev+'.pkl')
-    
+
             import gym
             env = gym.make(ev)
             max_steps = args.max_timesteps or env.spec.timestep_limit
