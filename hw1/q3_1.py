@@ -40,20 +40,20 @@ def main():
     data_ac = data['actions']
     #data_ob = data_ob[:,None,:]
     data_ac = data_ac.reshape(data_ac.shape[0],data_ac.shape[2])
-    
+
     EPOCHS = 50
     d_epochs = 5
 
 
     with tf.Session():
         tf_util.initialize()
-        model = keras.models.load_model(args.envname+ '_model.h5')
-        model_dag = keras.models.load_model(args.envname+ '_model.h5')
+        model = keras.models.load_model('Trained_model/'+args.envname+ '_model.h5')
+        model_dag = keras.models.load_model('Trained_model/'+args.envname+ '_DaggerModel.h5')
         import gym
         env = gym.make(args.envname)
         max_steps = args.max_timesteps or env.spec.timestep_limit
 
-        
+
         exp_mean_records = []
         exp_std_records = []
         bc_mean_records = []
@@ -62,7 +62,7 @@ def main():
         dag_std_records = []
 
         for i in range(d_epochs):
-            
+
             print("Running Dagger iteration: {}".format(i))
             ### Train model based on expert data
             model_dag.fit(data_ob, data_ac, epochs=EPOCHS,
@@ -75,11 +75,11 @@ def main():
             actions_st = np.array(actions)
 
             ### Expert labels the data
-            
+
             actions_ex = policy_fn(observations_st)
-            
+
             ### Update the model_dag via the new data
-            
+
             data_ob = np.concatenate((data_ob, observations_st))
             data_ac = np.concatenate((data_ac, actions_ex))
 
@@ -104,7 +104,7 @@ def main():
             bc_std_records.append(bc_std)
 
         model_dag.save(file_name+'_DaggerModel.h5')
-        
+
         dic = {'Expert': (exp_mean_records, exp_std_records), 'Dagger': (dag_mean_records,dag_std_records), 'BC':(bc_mean_records,bc_std_records)}
         my_utils.pltbars( args.envname , dic)
 

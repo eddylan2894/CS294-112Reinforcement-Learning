@@ -33,7 +33,7 @@ def main():
 
         for ev in env_name :
             tf_util.initialize()
-            model = keras.models.load_model('Trained_model'+ ev +'_model.h5')
+            model = keras.models.load_model('Trained_model/'+ ev +'_model.h5')
             policy_fn = load_policy.load_policy('experts/'+ev+'.pkl')
 
             import gym

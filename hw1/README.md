@@ -6,7 +6,7 @@ First, to generate expert data, run the `demo.bash` file. The file runs the `run
 
 For training behavior cloning model, run the `behavior_cloning file` by typing `python bahivior_cloning.py`. The model consists of two hidden layer and one output layer. We can modify `file_name` and `num_l` variables in the file to change the environments and the size of the hidden layers. The model after training will be store in a `<env_name>_<layer_size>.h5` file. The trained models are sotre in the `./Trained_model` folder.
 
-Use `python q2_1.py Reacher-v2 Hopper-v2 --num_rollouts=20` to run the simulation on Reacher and Hopper tasks. This file loads the policy from pre-train models located in the `./Trained_model` and `experts` folder. The .You could change the arguments to fit your needs.
+Use `python q2_1.py Reacher-v2 Hopper-v2 --num_rollouts=20` to run the simulation on Reacher and Hopper tasks. This file loads the policy from pre-train models located in the `./Trained_model` and `experts` folder. Please change the arguments to fit your needs.
 
 Use `python q2_3.py` to train the policy with different number of epochs and see the performance of different models.
 
